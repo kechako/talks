@@ -1,0 +1,78 @@
+Google Cloud Speech API を Go 言語で使ってみた
+11 Jan 2018
+Tags: Golang, Google Cloud Speech API
+
+Ryosuke Akiyama
+Researcher, SpiralMind Co., Ltd.
+ryosuke.akiyama@spiralmind.jp
+https://spiralmind.jp/
+@kechako
+
+* Google Cloud Speech API とは？
+
+- 音声をテキストに変換する API
+- ニューラルネットワークモデルを使用
+- 110以上の言語と方言を認識
+- 60分/月までは無料で使える
+
+* API の種類
+
+- 同期音声認識
+- 非同期音声認識
+- ストリーミング音声認識
+
+* 同期音声認識
+
+- 短い音声（1分未満）を処理するとすぐにレスポンスを返す
+- 長い音声を処理する場合は非同期音声認識を使用する
+- ローカルから音声データを送信するか、GCS に保存された音声ファイルを使用する
+
+* 非同期音声認識
+
+- 1分以上の音声認識を行う場合に使用する
+- 音声データの送信（または GCS の URL の送信）と、結果の取得を別々に行う
+- 上限は 80 分
+
+* ストリーミング音声認識
+
+- 音声を API にストリーミングし、音声が処理されるとリアルタイムで結果を受信
+- gRPC 経由のみ実行可能
+- 上限は 1 分
+
+* API を使うための準備
+
+- Cloud Console でプロジェクトを作る
+- Speech API を有効にする
+- サービスアカウントを作成し、JSON をダウンロードする
+
+* Golang から使うには
+
+環境変数にサービスアカウントの JSON の場所を指定しておく
+
+    export GOOGLE_APPLICATION_CREDENTIALS=/path/to/your-project-credentials.json
+
+API クライアントのパッケージを取得する
+
+    go get -u cloud.google.com/go/speech/apiv1
+
+あとはインポートして使うだけ
+
+* コード1
+
+.code use-speech-api-in-golang/examples/recognize.go /create new client/,/}$/
+
+* コード2
+
+.code use-speech-api-in-golang/examples/recognize.go /request recognize/,/}$/
+
+* コード3
+
+.code use-speech-api-in-golang/examples/recognize.go /show result/,/}$/
+
+* デモ
+
+* まとめ
+
+- 簡単に使えます。
+- さすが Google 精度が良いです。
+
