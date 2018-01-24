@@ -8,12 +8,32 @@ ryosuke.akiyama@spiralmind.jp
 https://spiralmind.jp/
 @kechako
 
+* スライドとサンプル
+
+- [[https://go-talks.appspot.com/github.com/kechako/talks/2018/use-speech-api-in-golang.slide]]
+- [[https://github.com/kechako/talks/tree/master/2018/use-speech-api-in-golang/examples]]
+
 * Google Cloud Speech API とは？
 
 - 音声をテキストに変換する API
 - ニューラルネットワークモデルを使用
 - 110以上の言語と方言を認識
-- 60分/月までは無料で使える
+- 60分/月までは無料で使える（それ以上は $0.006/15分）
+
+* 音声のエンコード
+
+FLAC または LINEAR16 がおすすめ。
+可能であれば、サンプリングレートは16,000 Hz（以上）がよい。
+再サンプリングはしない。
+
+コーデック
+- FLAC（16ビット or 24ビット）
+- LINEAR16（Linear PCM、16ビット）
+- MULAW（μ-law）
+- AMR（Adaptive Multi-Rate Narrowband、8,000Hz）
+- AMR_WB（Adaptive Multi-Rate Wideband、16,000Hz）
+- OGG_OPUS（Ogg コンテナ内の Opus でエンコードされた音声フレーム、16,000Hz）
+- SPEEX_WITH_HEADER_BYTE（Speex ワイドバンド、16,000Hz）
 
 * API の種類
 
@@ -73,6 +93,7 @@ API クライアントのパッケージを取得する
 
 * まとめ
 
-- 簡単に使えます。
-- さすが Google 精度が良いです。
+- クライアント SDK があるので使うのは簡単。
+- それなりに精度が良いです。
+- 単語ごとに開始時間、終了時間が取得できるので、字幕表示みたいなこともできるかも。
 
